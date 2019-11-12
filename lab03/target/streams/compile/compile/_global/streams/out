@@ -1,0 +1,7 @@
+[0m[[0m[31merror[0m] [0m[0m/home/LABPK/pokrasa/Dokumenty/Scala/okrasa-pawel/lab03/src/main/scala/Lab03.scala:39:62: '=' expected but '(' found.[0m
+[0m[[0m[31merror[0m] [0m[0m  def chop2[A](x: List[A], b: Int, e: Int): List[A] => x.drop(b).take(e-b)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/LABPK/pokrasa/Dokumenty/Scala/okrasa-pawel/lab03/src/main/scala/Lab03.scala:41:1: illegal start of simple expression[0m
+[0m[[0m[31merror[0m] [0m[0m  println(chop2(List(1,2,3,4,5),2,4))[0m
+[0m[[0m[31merror[0m] [0m[0m^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
