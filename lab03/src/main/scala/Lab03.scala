@@ -41,13 +41,14 @@ object Lab03 extends App {
 
   // Ćwiczenie 12. Zaimplementuj uogólnienie funkcji cleanup z Ćwiczenia 6.
   // stosując standardową metodę foldRight (Scala API - IterableOps)
-  def cleanup2[A](x: List[A]): List[A] = {
-
-    check(x:A, existing:List[A])
-  }
+  def cleanup2[A](x: List[A]): List[A] = x.foldRight(List[A]()) {(element, list)  => element match {
+    case x if list.contains(element) => list
+    case _ => list :+ element
+  }}.reverse
+  println(cleanup2(List(1,2,2,3,3,2,3,4)))
 
   // Ćwiczenie 13. Zaimplementuj funkcję remEls z Ćwiczenia 8. przy pomocy
   // standardowych metod: filter, map i zipWithIndex (Scala API - IterableOps)
-  def remEls2[A](x: List[A], k: Int): List[A] = ???
-
+  def remEls2[A](x: List[A], k: Int): List[A] = x.zipWithIndex.filter(x => (x._2 + 1) % k != 0).map(x => x._1)
+  println(remEls2(List(1,2,3,4,5,6,7),3))
 }
