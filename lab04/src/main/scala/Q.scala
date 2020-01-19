@@ -1,4 +1,4 @@
-
+import scala.language.implicitConversions
 /*
     Uzupełnij poniższą definicję klasy liczb wymiernych tak, aby:
 
@@ -21,7 +21,7 @@
        jest „posiadanie cechy” math.Ordering[Q] – skonstruuj odpowiedniego „świadka”
        (wykorzystaj konstrukcję implicit).
 */
-class Q(l: Int, m: Int) {
+class Q(l: Int, m: Int) extends Ordered[Q]{
     private val nd = nwd(l, m)
     val licz = l / nd
     val mian = m / nd
@@ -52,14 +52,14 @@ class Q(l: Int, m: Int) {
     }
     def +(x: Int) : Q = Q((x* mian + licz), mian)
 
-
+    override def compare(that: Q) : Int = this.licz * that.mian compare that.licz * this.mian
 }
 object Q {
     def apply(l: Int, m: Int) = new Q(l, m)
 
-    implicit class ExtendedInt(val x: Int) extends AnyVal { // Analogicznie dla pozostałych
-      def + (q: Q) : Q = Q(x* q.mian + q.licz, q.mian)
-    }
+    def apply(l: Int) = new Q(l,1)
+
+    implicit def IntToQ(l: Int) : Q = new Q(l,1)
 }
 
 
