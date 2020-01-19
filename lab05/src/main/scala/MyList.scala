@@ -4,7 +4,7 @@ abstract class MyList[+A] {
     def isEmpty: Boolean
     def add[B>:A](a: B): MyList[B]
     protected def elements : String
-    override def toString: String = s"MyList(${elements})"
+    override def toString: String = s"[${elements}]"
 }
 /*
   Zadanie 1: Pusta lista powinna być jedna. Jak to zrobić?
@@ -17,15 +17,15 @@ object MyEmptyList extends MyList[Nothing] {
     def add[B](a: B): MyList[B] = new MyNonEmptyList[B](a, this)
     override def elements : String = ""
 }
-class MyNonEmptyList[A](h: A, t: MyList[A]) extends MyList[A] {
+class MyNonEmptyList[A](h: A, t: MyList[A] = MyEmptyList) extends MyList[A] {
     def head: A = h
     def tail: MyList[A] = t
     def isEmpty: Boolean = false
     def add[B >: A](a: B): MyList[B] = new MyNonEmptyList[B](a, this)
     override def elements : String ={
-      def acum(list: MyList[A], acc : String = "") : String = l.isEmpty match {
-        case true => ""
-        case false => acum(acc += s",${h}", t)
+      def acum(list: MyList[A], acc : String = "") : String = list.isEmpty match {
+        case true => acc dropRight 1
+        case false => acum(list.tail, acc concat s"${list.head},")
       }
       acum(this)
     }
@@ -36,6 +36,16 @@ class MyNonEmptyList[A](h: A, t: MyList[A]) extends MyList[A] {
   MyList()
   MyList(1, 2, 3)
 */
+
+object MyList{
+    def apply() = MyEmptyList
+    def apply[A](args:A*) = {
+      var result : MyList[A] = MyEmptyList
+      for (arg <- args reverse) result = result add arg
+      result
+    }
+}
+
 
 /*
   Zadanie 3: Zdefiniuj (przesłoń) metodę toString dla klasy MyList tak, żeby
